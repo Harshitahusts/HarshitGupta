@@ -11,10 +11,12 @@ import {
   ExternalLink,
   Github,
   Linkedin,
+  FileDown,
   Mail,
   Menu,
   MoveUpRight,
   Orbit,
+  Phone,
   Sparkles,
   Target,
   X,
@@ -50,21 +52,24 @@ const projects: Project[] = [
     ],
     accent: "lime",
   },
+];
+
+const professionalRoles = [
+  {
+    number: "01",
+    company: "Kratikal Tech Pvt. Ltd.",
+    role: "Associate Product Manager",
+    period: "Jan 2025 — now",
+    description: "Leading AutoSecT product strategy, AI security verification, MSSP expansion, and enterprise delivery.",
+    outcomes: ["$12.5K MRR influenced", "35% faster crawls", "40% fewer false positives"],
+  },
   {
     number: "02",
-    eyebrow: "Kratikal Tech · 0→1 platform",
-    title: "AutoSecT",
-    description:
-      "Repositioned a security automation platform for MSSPs, pairing sharper product strategy with an AI verification layer.",
-    tags: ["AI security", "GTM", "B2B SaaS"],
-    live: "https://kratikal.com/",
-    repo: "https://github.com/Harshitahusts",
-    details: [
-      "20+ customer discovery calls shaped scan-based pricing and the MSSP ICP.",
-      "Drove $12.5K MRR through clearer positioning and enterprise deal support.",
-      "Reduced crawl time by 35% and false positives by 40% with contextual AI layers.",
-    ],
-    accent: "coral",
+    company: "BoloForms",
+    role: "Product Management Intern",
+    period: "May — Jul 2024",
+    description: "Improved PDF rendering performance and workflow efficiency for a product serving 20K+ users.",
+    outcomes: ["4s → 100ms rendering", "20K+ users", "$10K MRR expansion"],
   },
 ];
 
@@ -146,7 +151,8 @@ function App() {
         <div className="header-inner">
           <BrandMark />
           <nav className={`site-nav ${menuOpen ? "is-open" : ""}`} aria-label="Primary navigation">
-            <a href="#work" onClick={() => setMenuOpen(false)}>Selected work</a>
+            <a href="#work" onClick={() => setMenuOpen(false)}>Personal projects</a>
+            <a href="#career" onClick={() => setMenuOpen(false)}>Professional career</a>
             <a href="#approach" onClick={() => setMenuOpen(false)}>Approach</a>
             <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
             <a className="nav-cta" href="https://www.linkedin.com/in/harshit-gupta-316b35229/" target="_blank" rel="noreferrer" onClick={() => setMenuOpen(false)}>
@@ -170,8 +176,9 @@ function App() {
               Harshit Gupta is a product manager building AI-driven B2B SaaS and cybersecurity products across 0→1 and growth stages.
             </p>
             <div className="hero-actions">
-              <a className="button button--primary" href="#work">Explore the work <ArrowDownRight size={17} /></a>
+              <a className="button button--primary" href="#work">Personal projects <ArrowDownRight size={17} /></a>
               <a className="text-link" href="https://www.linkedin.com/in/harshit-gupta-316b35229/" target="_blank" rel="noreferrer">Open LinkedIn <ExternalLink size={15} /></a>
+              <a className="text-link" href="/manus-storage/Resume_d0efde8d.pdf" target="_blank" rel="noreferrer">Download résumé <FileDown size={15} /></a>
             </div>
             <div className="hero-meta">
               <div><span className="meta-value">01+</span><span className="meta-label">years shipping</span></div>
@@ -206,8 +213,8 @@ function App() {
 
         <section className="work-section container" id="work">
           <div className="section-heading reveal-up">
-            <div><span className="section-index">01 /</span><span className="section-kicker">Selected work</span></div>
-            <p>Ideas are only as good as the systems that carry them into the world.</p>
+            <div><span className="section-index">01 /</span><span className="section-kicker">Personal projects</span></div>
+            <p>A small set of products where I turned a real user problem into a clearer, calmer experience.</p>
           </div>
           <div className="project-list">
             {projects.map((project, index) => (
@@ -238,10 +245,32 @@ function App() {
           </div>
         </section>
 
+        <section className="career-section" id="career">
+          <div className="container career-grid">
+            <div className="career-heading reveal-up">
+              <span className="section-index">02 /</span>
+              <h2>Professional<br /><em>career.</em></h2>
+              <p>Experience across AI security, B2B SaaS, growth, and enterprise product delivery.</p>
+              <a className="button button--secondary" href="/manus-storage/Resume_d0efde8d.pdf" target="_blank" rel="noreferrer"><FileDown size={15} /> Read the résumé</a>
+            </div>
+            <div className="career-list reveal-up">
+              {professionalRoles.map((role) => (
+                <article className="career-card" key={role.company}>
+                  <div className="career-card__top"><span className="career-card__number">{role.number}</span><span className="timeline-date">{role.period}</span></div>
+                  <h3>{role.role}</h3>
+                  <p className="career-card__company">{role.company}</p>
+                  <p className="career-card__description">{role.description}</p>
+                  <div className="career-outcomes">{role.outcomes.map((outcome) => <span key={outcome}>{outcome}</span>)}</div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="approach-section" id="approach">
           <div className="container approach-grid">
             <div className="approach-heading reveal-up">
-              <span className="section-index">02 /</span>
+              <span className="section-index">03 /</span>
               <h2>Less noise.<br /><em>More signal.</em></h2>
               <p>My operating system for moving from a fuzzy problem to a product people choose.</p>
             </div>
@@ -255,7 +284,7 @@ function App() {
 
         <section className="about-section container" id="about">
           <div className="section-heading reveal-up">
-            <div><span className="section-index">03 /</span><span className="section-kicker">The short version</span></div>
+            <div><span className="section-index">04 /</span><span className="section-kicker">The short version</span></div>
             <p>A product mind with a technical spine and a bias toward making the important thing easier to see.</p>
           </div>
           <div className="about-grid">
@@ -271,9 +300,10 @@ function App() {
 
         <section className="contact-section" id="contact">
           <div className="container contact-inner reveal-up">
-            <span className="section-index">04 / contact</span>
+            <span className="section-index">05 / contact</span>
             <h2>Have a hard product<br /><em>problem?</em> Let&apos;s talk.</h2>
-            <a className="button button--primary button--large" href="https://www.linkedin.com/in/harshit-gupta-316b35229/" target="_blank" rel="noreferrer">Start a conversation <ArrowUpRight size={18} /></a>
+            <div className="contact-actions"><a className="button button--primary button--large" href="mailto:guptaharshit619@gmail.com">Email me <Mail size={18} /></a><a className="button contact-button-dark" href="tel:+919522012835">Call +91 95220 12835 <Phone size={17} /></a></div>
+            <div className="contact-details"><a href="mailto:guptaharshit619@gmail.com"><Mail size={15} /> guptaharshit619@gmail.com</a><a href="tel:+919522012835"><Phone size={15} /> +91 9522012835</a></div>
             <div className="contact-footer"><span>Harshit Gupta · APM</span><div className="socials"><SocialLink href="https://github.com/Harshitahusts" label="GitHub" icon={<Github size={17} />} /><SocialLink href="https://www.linkedin.com/in/harshit-gupta-316b35229/" label="LinkedIn" icon={<Linkedin size={17} />} /><SocialLink href="https://x.com/Harshit54283" label="X" icon={<span className="x-icon">𝕏</span>} /></div><span>© 2025</span></div>
           </div>
         </section>

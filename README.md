@@ -19,6 +19,12 @@ A premium, motion-led portfolio website for **Harshit Gupta**, an Associate Prod
 - [X](https://x.com/Harshit54283)
 - [Sarathi live product](https://sarathi-school-commute.vercel.app/)
 - [Sarathi GitHub repository](https://github.com/Harshitahusts/sarathi-school-commute)
+- [Download Harshit Gupta's résumé](/manus-storage/Resume_d0efde8d.pdf)
+
+## Contact
+
+- Email: guptaharshit619@gmail.com
+- Phone: +91-9522012835
 
 ## Run locally
 
@@ -36,6 +42,6 @@ pnpm build
 
 ## Notes
 
-The contact CTA intentionally routes to LinkedIn because the provided resume did not contain a verified email address. The AutoSecT live product link is represented by Kratikal Tech's public site because no direct AutoSecT URL was supplied.
+The portfolio separates **Personal projects** (Sarathi) from **Professional career** (AutoSecT at Kratikal Tech and BoloForms). The professional career entries intentionally do not include live-product or repository links.
 
 Built with React, TypeScript, Vite, Tailwind CSS, Lucide icons, and CSS 3D transforms.
