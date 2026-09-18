@@ -178,7 +178,7 @@ function App() {
             <div className="hero-actions">
               <a className="button button--primary" href="#work">Personal projects <ArrowDownRight size={17} /></a>
               <a className="text-link" href="https://www.linkedin.com/in/harshit-gupta-316b35229/" target="_blank" rel="noreferrer">Open LinkedIn <ExternalLink size={15} /></a>
-              <a className="text-link" href="/manus-storage/Resume_d0efde8d.pdf" target="_blank" rel="noreferrer">Download résumé <FileDown size={15} /></a>
+              <a className="text-link" href="/resume.pdf" target="_blank" rel="noreferrer">Download résumé <FileDown size={15} /></a>
             </div>
             <div className="hero-meta">
               <div><span className="meta-value">01+</span><span className="meta-label">years shipping</span></div>
@@ -251,7 +251,7 @@ function App() {
               <span className="section-index">02 /</span>
               <h2>Professional<br /><em>career.</em></h2>
               <p>Experience across AI security, B2B SaaS, growth, and enterprise product delivery.</p>
-              <a className="button button--secondary" href="/manus-storage/Resume_d0efde8d.pdf" target="_blank" rel="noreferrer"><FileDown size={15} /> Read the résumé</a>
+              <a className="button button--secondary" href="/resume.pdf" target="_blank" rel="noreferrer"><FileDown size={15} /> Read the résumé</a>
             </div>
             <div className="career-list reveal-up">
               {professionalRoles.map((role) => (

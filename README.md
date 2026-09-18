@@ -19,7 +19,7 @@ A premium, motion-led portfolio website for **Harshit Gupta**, an Associate Prod
 - [X](https://x.com/Harshit54283)
 - [Sarathi live product](https://sarathi-school-commute.vercel.app/)
 - [Sarathi GitHub repository](https://github.com/Harshitahusts/sarathi-school-commute)
-- [Download Harshit Gupta's résumé](/manus-storage/Resume_d0efde8d.pdf)
+- [Download Harshit Gupta's résumé](/resume.pdf)
 
 ## Contact
 
