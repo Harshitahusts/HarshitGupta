@@ -40,6 +40,10 @@ pnpm check
 pnpm build
 ```
 
+## Deploy to Vercel
+
+This project is configured for Vercel deployment with `vercel.json`. Import the repository into Vercel with the project root set to the repository root; Vercel will run `pnpm install --frozen-lockfile`, execute `pnpm vercel-build`, and serve the generated `dist/public` directory. SPA rewrites are included so the site remains reliable on direct route loads.
+
 ## Notes
 
 The portfolio separates **Personal projects** (Sarathi) from **Professional career** (AutoSecT at Kratikal Tech and BoloForms). The professional career entries intentionally do not include live-product or repository links.
