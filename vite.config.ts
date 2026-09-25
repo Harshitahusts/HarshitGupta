@@ -203,7 +203,19 @@ function vitePluginStorageProxy(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
+// Manus editor tooling is dev-only. In production, vitePluginManusRuntime inlined a second copy of
+// React (~350 KB) into index.html, so it (and the JSX source-location plugin) now only run under `vite dev`.
+const devOnly = (p: Plugin | Plugin[]): Plugin[] =>
+  (Array.isArray(p) ? p : [p]).map((plugin) => ({ ...plugin, apply: "serve" as const }));
+
+const plugins = [
+  react(),
+  tailwindcss(),
+  ...devOnly(jsxLocPlugin() as Plugin),
+  ...devOnly(vitePluginManusRuntime() as Plugin | Plugin[]),
+  vitePluginManusDebugCollector(),
+  vitePluginStorageProxy(),
+];
 
 export default defineConfig({
   plugins,
