@@ -1,9 +1,10 @@
 /**
- * The background scene: a polished, iridescent chrome knot lit by a soft studio
- * environment, with a quiet ring of particles orbiting it.
+ * The background scene: a clear glass knot lit by a soft studio environment,
+ * with a quiet ring of particles orbiting it.
  *
- * - The knot uses a physically based material (metal + clearcoat + thin-film
- *   iridescence) reflecting a generated studio room, so it reads as a real object.
+ * - The knot uses a transmissive physical material (glass with slight dispersion
+ *   and a faint lime tint) that refracts soft brand-coloured glows behind it and
+ *   reflects a generated studio room.
  * - Scroll progress (0 → 1) drifts it across the page and turns it.
  * - The pointer tilts the whole scene a little.
  *
@@ -102,7 +103,35 @@ export function createCoreScene(
   const rig = new THREE.Group();
   scene.add(rig);
 
-  // The object: a smooth knot in dark iridescent chrome.
+  // Backdrop: soft brand-coloured glows the glass can refract. It is opaque and
+  // uses the page background colour, so it blends seamlessly with the page.
+  const glowCanvas = document.createElement("canvas");
+  glowCanvas.width = glowCanvas.height = 1024;
+  const g = glowCanvas.getContext("2d")!;
+  g.fillStyle = "#070807";
+  g.fillRect(0, 0, 1024, 1024);
+  const glow = (x: number, y: number, rad: number, rgb: string, a: number) => {
+    const grd = g.createRadialGradient(x, y, 0, x, y, rad);
+    grd.addColorStop(0, `rgba(${rgb},${a})`);
+    grd.addColorStop(1, `rgba(${rgb},0)`);
+    g.fillStyle = grd;
+    g.fillRect(0, 0, 1024, 1024);
+  };
+  glow(500, 500, 95, "212,240,106", 0.38);
+  glow(535, 535, 105, "143,166,196", 0.36);
+  glow(515, 505, 40, "236,235,228", 0.28);
+  const glowTex = new THREE.CanvasTexture(glowCanvas);
+  glowTex.colorSpace = THREE.SRGBColorSpace;
+  const backdropGeo = new THREE.PlaneGeometry(26, 26);
+  const backdropMat = new THREE.MeshBasicMaterial({
+    map: glowTex,
+    toneMapped: false,
+  });
+  const backdrop = new THREE.Mesh(backdropGeo, backdropMat);
+  backdrop.position.z = -3.5;
+  rig.add(backdrop);
+
+  // The object: a smooth knot in clear, slightly dispersive glass.
   const knotGeo = new THREE.TorusKnotGeometry(
     1,
     0.3,
@@ -112,23 +141,29 @@ export function createCoreScene(
     3
   );
   const knotMat = new THREE.MeshPhysicalMaterial({
-    color: new THREE.Color("#2a2e26"),
-    metalness: 1,
-    roughness: 0.18,
+    color: new THREE.Color("#ffffff"),
+    metalness: 0,
+    roughness: 0.04,
+    transmission: 1,
+    thickness: 0.9,
+    ior: 1.5,
+    dispersion: mobile ? 0 : 3,
+    attenuationColor: new THREE.Color("#e4f7b8"),
+    attenuationDistance: 4,
     clearcoat: 1,
-    clearcoatRoughness: 0.08,
-    iridescence: 0.7,
-    iridescenceIOR: 1.35,
-    iridescenceThicknessRange: [300, 420],
-    envMapIntensity: 1.25,
+    clearcoatRoughness: 0.04,
+    iridescence: 0.2,
+    iridescenceIOR: 1.3,
+    specularIntensity: 1,
+    envMapIntensity: 1.4,
   });
   const knot = new THREE.Mesh(knotGeo, knotMat);
   rig.add(knot);
 
-  // Coloured rim lights pick out the brand palette on the chrome.
-  const lime = new THREE.PointLight(new THREE.Color("#d4f06a"), 46, 14);
+  // Coloured highlights on the glass, in the brand palette.
+  const lime = new THREE.PointLight(new THREE.Color("#d4f06a"), 30, 14);
   lime.position.set(3.2, 2.2, 2.5);
-  const steel = new THREE.PointLight(new THREE.Color("#8fa6c4"), 24, 14);
+  const steel = new THREE.PointLight(new THREE.Color("#8fa6c4"), 20, 14);
   steel.position.set(-3.4, -1.8, 1.5);
   scene.add(lime, steel);
 
@@ -274,6 +309,9 @@ export function createCoreScene(
       cancelAnimationFrame(raf);
       knotGeo.dispose();
       knotMat.dispose();
+      backdropGeo.dispose();
+      backdropMat.dispose();
+      glowTex.dispose();
       envMap.dispose();
       ptsGeo.dispose();
       ptsMat.dispose();
