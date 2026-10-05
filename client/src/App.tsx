@@ -1,5 +1,4 @@
 import SiteNav from "@/components/portfolio/SiteNav";
-import SceneCanvas from "@/components/portfolio/SceneCanvas";
 import Hero from "@/components/portfolio/Hero";
 import Experience from "@/components/portfolio/Experience";
 import Projects from "@/components/portfolio/Projects";
@@ -9,7 +8,7 @@ import { useRevealOnScroll, useSpotlight } from "@/components/portfolio/hooks";
 
 /**
  * One compact page: Hero → Experience → Projects → Toolkit → Contact.
- * The 3D scene is a fixed, decorative background; every piece of content is real HTML.
+ * The ambient background is decorative CSS; every piece of content is real HTML.
  */
 function App() {
   useRevealOnScroll();
@@ -19,7 +18,7 @@ function App() {
       <a className="skip-link" href="#experience">
         Skip to content
       </a>
-      <SceneCanvas />
+      <div className="ambient" aria-hidden />
       <div className="grain" aria-hidden />
       <SiteNav />
       <main>

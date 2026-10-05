@@ -6,7 +6,7 @@ A compact, premium portfolio for **Harshit Gupta**, Product Manager at Suscin In
 
 `Hero → Experience → Projects → Toolkit → Contact`
 
-- **3D background** (`client/src/three/coreScene.ts`): a polished graphite-chrome knot (physically based metal, clearcoat and thin-film iridescence, lit by a generated studio environment and lime/steel rim lights) with a particle orbit, rendered on a fixed full-screen canvas. Scroll drifts and morphs it, and the pointer tilts it. It is loaded with a dynamic import after first paint, pauses when the tab is hidden, caps pixel ratio, uses less geometry on mobile, respects `prefers-reduced-motion`, and falls back to a CSS glow without WebGL.
+- **Portrait hero** (`client/src/components/portfolio/Hero.tsx`): a pixel-art portrait (`client/public/harshit.jpg`) that pops in, floats, tilts toward the cursor, and drifts up, shrinks and fades as you scroll. The nav avatar takes over once it's gone. The background is a CSS ambient glow with grain, with no WebGL or three.js. Motion respects `prefers-reduced-motion`.
 - **Content** lives in `client/src/content.ts`. Every fact comes from `client/public/resume.pdf`.
 - No horizontal scroll: `overflow-x: clip` on the root, and every grid uses `minmax(0, 1fr)`. Verified at 1440, 390 and 320px widths.
 
@@ -47,4 +47,4 @@ This project is configured for Vercel deployment with `vercel.json`. Import the 
 
 ## Notes
 
-Built with React, TypeScript, Vite and three.js. The Manus editor plugins run only under `vite dev`, so they never ship in the production bundle.
+Built with React, TypeScript and Vite. The Manus editor plugins run only under `vite dev`, so they never ship in the production bundle.
