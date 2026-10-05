@@ -6,7 +6,7 @@ A compact, premium portfolio for **Harshit Gupta**, Product Manager at Suscin In
 
 `Hero → Experience → Projects → Toolkit → Contact`
 
-- **3D background** (`client/src/three/coreScene.ts`): a noise-displaced, iridescent liquid core with a particle orbit, rendered on a fixed full-screen canvas. Scroll drifts and morphs it, and the pointer tilts it. It is loaded with a dynamic import after first paint, pauses when the tab is hidden, caps pixel ratio, uses less geometry on mobile, respects `prefers-reduced-motion`, and falls back to a CSS glow without WebGL.
+- **3D background** (`client/src/three/coreScene.ts`): a polished graphite-chrome knot (physically based metal, clearcoat and thin-film iridescence, lit by a generated studio environment and lime/steel rim lights) with a particle orbit, rendered on a fixed full-screen canvas. Scroll drifts and morphs it, and the pointer tilts it. It is loaded with a dynamic import after first paint, pauses when the tab is hidden, caps pixel ratio, uses less geometry on mobile, respects `prefers-reduced-motion`, and falls back to a CSS glow without WebGL.
 - **Content** lives in `client/src/content.ts`. Every fact comes from `client/public/resume.pdf`.
 - No horizontal scroll: `overflow-x: clip` on the root, and every grid uses `minmax(0, 1fr)`. Verified at 1440, 390 and 320px widths.
 
