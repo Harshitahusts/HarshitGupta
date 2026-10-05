@@ -1,32 +1,32 @@
 import SiteNav from "@/components/portfolio/SiteNav";
-import Journey from "@/components/portfolio/Journey";
-import CaseStudies from "@/components/portfolio/CaseStudies";
-import Thinking from "@/components/portfolio/Thinking";
+import SceneCanvas from "@/components/portfolio/SceneCanvas";
+import Hero from "@/components/portfolio/Hero";
 import Experience from "@/components/portfolio/Experience";
-import About from "@/components/portfolio/About";
+import Projects from "@/components/portfolio/Projects";
+import Skills from "@/components/portfolio/Skills";
 import Contact from "@/components/portfolio/Contact";
-import { useRevealOnScroll } from "@/components/portfolio/hooks";
+import { useRevealOnScroll, useSpotlight } from "@/components/portfolio/hooks";
 
 /**
- * Information architecture — "The journey of a product":
- *   Hero → Journey (Idea · Discover · Define · Build · Launch · Measure · Iterate · Next)
- *   → Work (case studies) → How I think → Experience → About → Contact
- * The 3D scene is progressive enhancement; every piece of content is real HTML.
+ * One compact page: Hero → Experience → Projects → Toolkit → Contact.
+ * The 3D scene is a fixed, decorative background; every piece of content is real HTML.
  */
 function App() {
   useRevealOnScroll();
+  useSpotlight();
   return (
     <>
-      <a className="skip-link" href="#work">
-        Skip to work
+      <a className="skip-link" href="#experience">
+        Skip to content
       </a>
+      <SceneCanvas />
+      <div className="grain" aria-hidden />
       <SiteNav />
       <main>
-        <Journey />
-        <CaseStudies />
-        <Thinking />
+        <Hero />
         <Experience />
-        <About />
+        <Projects />
+        <Skills />
       </main>
       <Contact />
     </>

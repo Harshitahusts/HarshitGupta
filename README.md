@@ -1,22 +1,22 @@
 # Harshit Gupta — Product Manager Portfolio
 
-A premium, motion-led portfolio website for **Harshit Gupta**, an Associate Product Manager focused on AI-driven B2B SaaS, cybersecurity, product strategy, and enterprise delivery.
+A compact, premium portfolio for **Harshit Gupta**, Product Manager at Suscin Innovation Labs (GreenTick.ai), building AI-driven B2B SaaS, cybersecurity and compliance products from 0 to 1.
 
-## Concept — "The journey of a product"
+## Structure
 
-The site is structured as a product lifecycle, and each stage is backed by real evidence from the résumé or the Sarathi design document:
+`Hero → Experience → Projects → Toolkit → Contact`
 
-`Hero → Idea → Discover → Define → Build → Launch → Measure → Iterate → Next → Work → How I think → Experience → About → Contact`
-
-- **3D journey** (`client/src/three/journeyScene.ts`) — one three.js particle system that morphs through nine formations as you scroll (scroll = time). It loads with a dynamic import after first paint, renders only while visible, caps the device pixel ratio, uses fewer particles on mobile, switches to discrete cuts under `prefers-reduced-motion`, and falls back to a static illustration without WebGL. All content is real HTML; the canvas is decorative (`aria-hidden`).
-- **Case studies** (`client/src/components/portfolio/CaseStudies.tsx`) — AutoSecT (flagship, with an illustrative findings-verification flow), Sarathi (users, custody chain, prioritisation, pilot targets) and BoloForms (latency drawn to scale).
-- **Content** lives in `client/src/content.ts`, with a source note for every fact. Don't add numbers that aren't in the résumé or the Sarathi docs.
+- **3D background** (`client/src/three/coreScene.ts`): a noise-displaced, iridescent liquid core with a particle orbit, rendered on a fixed full-screen canvas. Scroll drifts and morphs it, and the pointer tilts it. It is loaded with a dynamic import after first paint, pauses when the tab is hidden, caps pixel ratio, uses less geometry on mobile, respects `prefers-reduced-motion`, and falls back to a CSS glow without WebGL.
+- **Content** lives in `client/src/content.ts`. Every fact comes from `client/public/resume.pdf`.
+- No horizontal scroll: `overflow-x: clip` on the root, and every grid uses `minmax(0, 1fr)`. Verified at 1440, 390 and 320px widths.
 
 ## Featured links
 
 - [LinkedIn](https://www.linkedin.com/in/harshit-gupta-316b35229/)
 - [GitHub](https://github.com/Harshitahusts)
 - [X](https://x.com/Harshit54283)
+- [GRC-Flow](https://grc-flow.com) · [app](https://app.grc-flow.com)
+- [GreenTick.ai](https://greentick.ai)
 - [Sarathi live product](https://sarathi-school-commute.vercel.app/)
 - [Sarathi GitHub repository](https://github.com/Harshitahusts/sarathi-school-commute)
 - [Sarathi product design & lifecycle document](https://github.com/Harshitahusts/sarathi-school-commute/blob/main/docs/complete-product-design-and-lifecycle-document.pdf)
@@ -47,6 +47,4 @@ This project is configured for Vercel deployment with `vercel.json`. Import the 
 
 ## Notes
 
-The portfolio separates **Personal projects** (Sarathi) from **Professional career** (AutoSecT at Kratikal Tech and BoloForms). The professional career entries intentionally do not include live-product or repository links.
-
-Built with React, TypeScript, Vite, three.js and Lucide icons. The Manus editor plugins run only under `vite dev`, so they never ship in the production bundle.
+Built with React, TypeScript, Vite and three.js. The Manus editor plugins run only under `vite dev`, so they never ship in the production bundle.

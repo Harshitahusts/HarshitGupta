@@ -2,7 +2,9 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 
 export function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(() =>
-    typeof window !== "undefined" ? window.matchMedia("(prefers-reduced-motion: reduce)").matches : false,
+    typeof window !== "undefined"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      : false
   );
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -16,13 +18,15 @@ export function usePrefersReducedMotion() {
 /** Adds `is-in` to every `[data-reveal]` element the first time it enters the viewport. */
 export function useRevealOnScroll() {
   useEffect(() => {
-    const els = Array.from(document.querySelectorAll<HTMLElement>("[data-reveal]"));
+    const els = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-reveal]")
+    );
     if (!("IntersectionObserver" in window)) {
-      els.forEach((el) => el.classList.add("is-in"));
+      els.forEach(el => el.classList.add("is-in"));
       return;
     }
     const io = new IntersectionObserver(
-      (entries) => {
+      entries => {
         for (const e of entries) {
           if (e.isIntersecting) {
             e.target.classList.add("is-in");
@@ -30,20 +34,25 @@ export function useRevealOnScroll() {
           }
         }
       },
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.05 },
+      { rootMargin: "0px 0px -8% 0px", threshold: 0 }
     );
-    els.forEach((el) => io.observe(el));
+    els.forEach(el => io.observe(el));
     return () => io.disconnect();
   }, []);
 }
 
 /** True once the element has been on screen (used to start one-shot animations). */
-export function useInView<T extends Element>(ref: RefObject<T | null>, rootMargin = "0px") {
+export function useInView<T extends Element>(
+  ref: RefObject<T | null>,
+  rootMargin = "0px"
+) {
   const [inView, setInView] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), { rootMargin });
+    const io = new IntersectionObserver(([e]) => setInView(e.isIntersecting), {
+      rootMargin,
+    });
     io.observe(el);
     return () => io.disconnect();
   }, [ref, rootMargin]);
@@ -57,7 +66,9 @@ export function useMagnetic<T extends HTMLElement>() {
     const el = ref.current;
     if (!el) return;
     const fine = window.matchMedia("(pointer: fine)").matches;
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
     if (!fine || reduced) return;
     const move = (e: PointerEvent) => {
       const r = el.getBoundingClientRect();
@@ -79,7 +90,12 @@ export function useMagnetic<T extends HTMLElement>() {
 }
 
 /** Animates a number from 0 to `to` once `start` becomes true. */
-export function useCountUp(to: number, start: boolean, decimals = 0, duration = 1200) {
+export function useCountUp(
+  to: number,
+  start: boolean,
+  decimals = 0,
+  duration = 1200
+) {
   const [value, setValue] = useState(0);
   useEffect(() => {
     if (!start) return;
@@ -99,4 +115,20 @@ export function useCountUp(to: number, start: boolean, decimals = 0, duration = 
     return () => cancelAnimationFrame(raf);
   }, [to, start, duration]);
   return value.toFixed(decimals);
+}
+
+/** Cursor-tracked spotlight on every `.spot` card: sets --mx / --my on the hovered card. */
+export function useSpotlight() {
+  useEffect(() => {
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+    const move = (e: PointerEvent) => {
+      const el = (e.target as Element | null)?.closest<HTMLElement>(".spot");
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    document.addEventListener("pointermove", move, { passive: true });
+    return () => document.removeEventListener("pointermove", move);
+  }, []);
 }

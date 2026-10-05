@@ -1,55 +1,64 @@
-import { FileText } from "lucide-react";
-import { experience, LINKS } from "@/content";
+import { experience, education } from "@/content";
 
 export default function Experience() {
   return (
-    <section className="experience" id="experience" aria-labelledby="experience-title">
+    <section
+      className="section"
+      id="experience"
+      aria-labelledby="experience-title"
+    >
       <div className="container">
         <header className="section-head" data-reveal>
-          <p className="kicker">Experience</p>
-          <h2 id="experience-title" className="section-title">
-            Milestones, <em>not a résumé dump.</em>
-          </h2>
-          <p className="section-lede">
-            What the problem space was, what I owned, and what changed.{" "}
-            <a className="inline-link" href={LINKS.resume} target="_blank" rel="noreferrer">
-              Full résumé <FileText size={13} aria-hidden />
-            </a>
+          <p className="eyebrow">
+            <span className="eyebrow__n">01</span> Experience
           </p>
+          <h2 className="section-title" id="experience-title">
+            Where I’ve <em>shipped.</em>
+          </h2>
         </header>
 
-        <ol className="milestones">
-          {experience.map((e) => (
-            <li key={e.company} className="milestone" data-reveal>
-              <div className="milestone__when">
-                <span>{e.period}</span>
-                <span>{e.place}</span>
+        <ol className="roles">
+          {experience.map((r, i) => (
+            <li
+              key={r.company}
+              className="role spot"
+              data-reveal
+              style={{ "--i": i } as React.CSSProperties}
+            >
+              <div className="role__meta">
+                <span className="role__period">{r.period}</span>
+                <span className="role__place">{r.place}</span>
               </div>
-              <div className="milestone__body">
-                <h3>
-                  {e.role} <span>· {e.company}</span>
+              <div className="role__main">
+                <h3 className="role__company">
+                  {r.company}
+                  {r.product && (
+                    <span className="role__product">{r.product}</span>
+                  )}
                 </h3>
-                <dl>
-                  <div>
-                    <dt>Problem space</dt>
-                    <dd>{e.space}</dd>
-                  </div>
-                  <div>
-                    <dt>Owned</dt>
-                    <dd>{e.owned}</dd>
-                  </div>
-                </dl>
-                {e.changed.length > 0 && (
-                  <ul className="chips" aria-label="What changed">
-                    {e.changed.map((c) => (
-                      <li key={c}>{c}</li>
-                    ))}
-                  </ul>
-                )}
+                <p className="role__title">{r.role}</p>
+                <ul className="role__points">
+                  {r.points.map(p => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+                <ul className="tags" aria-label="Focus areas">
+                  {r.tags.map(t => (
+                    <li key={t}>{t}</li>
+                  ))}
+                </ul>
               </div>
             </li>
           ))}
         </ol>
+
+        <p className="edu" data-reveal>
+          <span className="edu__label">Education</span>
+          <span>
+            {education.degree} · <strong>{education.school}</strong>
+          </span>
+          <span className="edu__period">{education.period}</span>
+        </p>
       </div>
     </section>
   );
