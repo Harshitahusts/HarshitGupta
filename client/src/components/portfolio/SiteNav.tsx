@@ -11,11 +11,13 @@ const items = [
 export default function SiteNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [pastHero, setPastHero] = useState(false);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 24);
+      setPastHero(window.scrollY > window.innerHeight * 0.6);
       const max = document.documentElement.scrollHeight - window.innerHeight;
       setProgress(max > 0 ? window.scrollY / max : 0);
     };
@@ -39,7 +41,7 @@ export default function SiteNav() {
 
   return (
     <header
-      className={`nav ${scrolled ? "is-scrolled" : ""} ${open ? "is-open" : ""}`}
+      className={`nav ${scrolled ? "is-scrolled" : ""} ${pastHero ? "is-past-hero" : ""} ${open ? "is-open" : ""}`}
     >
       <div className="nav__bar">
         <a
@@ -49,7 +51,8 @@ export default function SiteNav() {
           aria-label="Harshit Gupta, back to top"
         >
           <span className="nav__mark" aria-hidden>
-            HG
+            <span className="nav__initials">HG</span>
+            <img src="/harshit.jpg" alt="" width={32} height={32} />
           </span>
           <span className="nav__name">Harshit Gupta</span>
         </a>
